@@ -33,6 +33,6 @@ export const reviewCode = createServerFn({ method: "POST" })
       `Challenge:\n${data.challenge}\n\nSubmission:\n${data.code}`,
     );
     const m = text.match(/SCORE:\s*(\d{1,3})/i);
-    const score = m ? Math.min(100, parseInt(m[1], 10)) : null;
+    const score = m ? Math.min(100, parseInt(m[1] ?? "0", 10)) : null;
     return { score, feedback: text.replace(/^.*SCORE:\s*\d+.*\n?/i, "").trim() };
   });

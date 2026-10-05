@@ -5,7 +5,7 @@ import type { Database } from "@/integrations/supabase/types";
 export const getPortfolio = createServerFn({ method: "GET" })
   .inputValidator((d: { username: string }) => ({ username: String(d.username).slice(0, 60).toLowerCase() }))
   .handler(async ({ data }) => {
-    const sb = createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
+    const sb = createClient<Database>(process.env["SUPABASE_URL"]!, process.env["SUPABASE_PUBLISHABLE_KEY"]!, {
       auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
     });
     const { data: profile } = await sb
