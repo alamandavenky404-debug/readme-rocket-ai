@@ -14,7 +14,156 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      learning_goals: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          notes: string
+          progress: number
+          status: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          notes?: string
+          progress?: number
+          status?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          notes?: string
+          progress?: number
+          status?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      practice_attempts: {
+        Row: {
+          challenge_id: string
+          code: string
+          created_at: string
+          feedback: string
+          id: string
+          score: number | null
+          user_id: string
+        }
+        Insert: {
+          challenge_id: string
+          code: string
+          created_at?: string
+          feedback?: string
+          id?: string
+          score?: number | null
+          user_id: string
+        }
+        Update: {
+          challenge_id?: string
+          code?: string
+          created_at?: string
+          feedback?: string
+          id?: string
+          score?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          bio: string
+          created_at: string
+          full_name: string
+          github_username: string
+          headline: string
+          id: string
+          is_public: boolean
+          location: string
+          resume: Json
+          skills: string[]
+          updated_at: string
+          username: string
+          website: string
+        }
+        Insert: {
+          bio?: string
+          created_at?: string
+          full_name?: string
+          github_username?: string
+          headline?: string
+          id: string
+          is_public?: boolean
+          location?: string
+          resume?: Json
+          skills?: string[]
+          updated_at?: string
+          username: string
+          website?: string
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          full_name?: string
+          github_username?: string
+          headline?: string
+          id?: string
+          is_public?: boolean
+          location?: string
+          resume?: Json
+          skills?: string[]
+          updated_at?: string
+          username?: string
+          website?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          created_at: string
+          description: string
+          featured: boolean
+          id: string
+          live_url: string
+          readme: string
+          repo_url: string
+          tech_stack: string[]
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          featured?: boolean
+          id?: string
+          live_url?: string
+          readme?: string
+          repo_url?: string
+          tech_stack?: string[]
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          featured?: boolean
+          id?: string
+          live_url?: string
+          readme?: string
+          repo_url?: string
+          tech_stack?: string[]
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
