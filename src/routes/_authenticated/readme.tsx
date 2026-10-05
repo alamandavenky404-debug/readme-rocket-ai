@@ -13,7 +13,7 @@ import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/readme")({
-  validateSearch: (s: Record<string, unknown>) => ({ project: typeof s.project === "string" ? s.project : undefined }),
+  validateSearch: (s: Record<string, unknown>) => ({ project: typeof s["project"] === "string" ? s["project"] : undefined }),
   head: () => ({ meta: [{ title: "README Generator — DevHub" }, { name: "description", content: "Generate README files with AI." }] }),
   component: ReadmePage,
 });
@@ -55,7 +55,7 @@ function ReadmePage() {
   async function saveToProject() {
     if (!projectId) return;
     const { error } = await supabase.from("projects").update({ readme: out }).eq("id", projectId);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("README saved to project");
     qc.invalidateQueries({ queryKey: ["projects"] });
   }
@@ -75,7 +75,7 @@ function ReadmePage() {
       <p className="text-sm text-muted-foreground">Describe your project and AI writes a deploy-ready README.</p>
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <div className="space-y-3">
-          <Select value={projectId} onValueChange={setProjectId}>
+          <Select value={projectId ?? ""} onValueChange={setProjectId}>
             <SelectTrigger><SelectValue placeholder="Start from a saved project (optional)" /></SelectTrigger>
             <SelectContent>
               {projects.map((p) => <SelectItem key={p.id} value={p.id}>{p.title}</SelectItem>)}

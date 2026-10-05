@@ -6,7 +6,7 @@ const MODEL = "openai/gpt-6-astra";
 
 /** One-shot AI call: streams from the gateway and returns the final text. */
 export async function runAi(instructions: string, prompt: string): Promise<string> {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("AI is not configured");
   const provider = createOpenAI({
     baseURL: GATEWAY,

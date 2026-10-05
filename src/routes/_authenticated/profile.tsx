@@ -28,12 +28,12 @@ function ProfilePage() {
   async function save() {
     if (!profile) return;
     const username = f.username.toLowerCase().replace(/[^a-z0-9-]/g, "");
-    if (username.length < 3) return toast.error("Username must be at least 3 characters (letters, numbers, dashes)");
+    if (username.length < 3) { toast.error("Username must be at least 3 characters (letters, numbers, dashes)"); return; }
     const { error } = await supabase
       .from("profiles")
       .update({ ...f, username, skills: f.skills.split(",").map((s) => s.trim()).filter(Boolean) })
       .eq("id", profile.id);
-    if (error) return toast.error(error.code === "23505" ? "That username is taken" : error.message);
+    if (error) { toast.error(error.code === "23505" ? "That username is taken" : error.message); return; }
     toast.success("Portfolio saved");
     qc.invalidateQueries({ queryKey: ["profile"] });
   }

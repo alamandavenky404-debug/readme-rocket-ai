@@ -39,7 +39,7 @@ function ProjectsPage() {
   }
 
   async function save() {
-    if (!form.title.trim()) return toast.error("Title is required");
+    if (!form.title.trim()) { toast.error("Title is required"); return; }
     const row = {
       title: form.title.trim(),
       description: form.description,
@@ -51,7 +51,7 @@ function ProjectsPage() {
     const { error } = editing
       ? await supabase.from("projects").update(row).eq("id", editing.id)
       : await supabase.from("projects").insert({ ...row, user_id: await uid() });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Saved");
     setOpen(false);
     qc.invalidateQueries({ queryKey: ["projects"] });
@@ -59,7 +59,7 @@ function ProjectsPage() {
 
   async function remove(id: string) {
     const { error } = await supabase.from("projects").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["projects"] });
   }
 

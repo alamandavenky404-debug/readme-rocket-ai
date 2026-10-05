@@ -21,8 +21,8 @@ function PracticePage() {
   const qc = useQueryClient();
   const review = useServerFn(reviewCode);
   const { data: attempts = [] } = useQuery(attemptsQuery);
-  const [active, setActive] = useState(CHALLENGES[0]);
-  const [code, setCode] = useState(CHALLENGES[0].starter);
+  const [active, setActive] = useState(CHALLENGES[0]!);
+  const [code, setCode] = useState(CHALLENGES[0]!.starter);
   const [result, setResult] = useState<{ score: number | null; feedback: string } | null>(null);
   const [busy, setBusy] = useState(false);
 

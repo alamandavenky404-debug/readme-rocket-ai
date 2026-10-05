@@ -35,7 +35,7 @@ function LearningPage() {
   async function add(t = title, c = category) {
     if (!t.trim()) return;
     const { error } = await supabase.from("learning_goals").insert({ user_id: await uid(), title: t.trim(), category: c });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setTitle("");
     refresh();
   }
@@ -88,7 +88,7 @@ function LearningPage() {
                 <button onClick={() => remove(g.id)} className="text-muted-foreground hover:text-destructive" aria-label="Delete"><Trash2 className="h-4 w-4" /></button>
               </div>
             </div>
-            <Slider className="mt-3" defaultValue={[g.progress]} max={100} step={5} onValueCommit={(v) => update(g, v[0])} />
+            <Slider className="mt-3" defaultValue={[g.progress]} max={100} step={5} onValueCommit={(v) => update(g, v[0] ?? 0)} />
           </div>
         ))}
         {goals.length === 0 && <p className="text-sm text-muted-foreground">No goals yet — try a suggestion above.</p>}

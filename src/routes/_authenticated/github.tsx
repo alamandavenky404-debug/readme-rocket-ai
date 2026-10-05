@@ -35,7 +35,7 @@ function GithubPage() {
     setLoading(true);
     const res = await fetch(`https://api.github.com/users/${encodeURIComponent(u)}/repos?sort=updated&per_page=50`);
     setLoading(false);
-    if (!res.ok) return toast.error(res.status === 404 ? "GitHub user not found" : "Couldn't reach GitHub, try again later");
+    if (!res.ok) { toast.error(res.status === 404 ? "GitHub user not found" : "Couldn't reach GitHub, try again later"); return; }
     setRepos(((await res.json()) as Repo[]).filter((r) => !r.fork));
   }
 
@@ -57,7 +57,7 @@ function GithubPage() {
       repo_url: r.html_url,
       live_url: r.homepage ?? "",
     });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success(`Imported ${r.name}`);
     qc.invalidateQueries({ queryKey: ["projects"] });
   }
